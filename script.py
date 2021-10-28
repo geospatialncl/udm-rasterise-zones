@@ -6,13 +6,14 @@ from osgeo import ogr
 import math
 
 
-current_dir = str(Path.cwd())
+# setup paths to data
+data = Path(os.getenv('DATA_PATH', '/data'))
 
-inputs = Path(current_dir + '/data/inputs/')
+inputs = data / 'inputs'
 
-temp = Path(current_dir + '/data/temp/')
+temp = data / 'temp'
 
-outputs = Path(current_dir + '/data/outputs/')
+outputs = data / 'outputs'
 
 temp.mkdir(exist_ok=True)
 outputs.mkdir(exist_ok=True)
