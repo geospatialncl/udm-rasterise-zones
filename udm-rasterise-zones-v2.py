@@ -27,7 +27,7 @@ logger.addHandler(fh)
 
 input_files = []
 for ext in ['shp', 'gpkg']:
-    input_files.extend(list(inputs.glob(f"*/*.{ext}")))
+    input_files.extend(list(inputs.glob(f"polygons/*.{ext}")))
 
 assert len(input_files) > 0, 'No input files found'
 selected_file = input_files[0]
