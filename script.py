@@ -4,6 +4,7 @@ import os
 import logging
 from osgeo import ogr
 import math
+import geopandas as gpd
 
 
 # setup paths to data
@@ -18,6 +19,7 @@ outputs = data / 'outputs'
 temp.mkdir(exist_ok=True)
 outputs.mkdir(exist_ok=True)
 
+sort_field = os.getenv('SORT_FIELD')
 
 logger = logging.getLogger('udm-rasterise-zones')
 logger.setLevel(logging.INFO)
@@ -64,7 +66,6 @@ extent += str(xmax) + ','
 extent += str(ymax)
 print(extent)
 
-# Todo - save extent to file or environment variable
 f = open(outputs / "extents.txt", "w")
 f.write(extent)
 f.close()
@@ -119,17 +120,21 @@ outDataSource = None
 
 logger.info('Bounding box created')
 
+boundaries = gpd.read_file(input_files[0])
+boundaries['sort_id'] = boundaries[sort_field].argsort()
+boundaries.to_file(temp / 'boundaries.shp')
+
 ##--rasterise at 1m
 
 logger.info(f'Rasterizing {selected_file}')
 
 subprocess.call(['gdal_rasterize',
-                 '-a', 'zid',  # attribute field to burn
+                 '-a', 'sort_id',  # attribute field to burn
                  '-tr', '100', '100',  # target resolution <xres> <yres>
                  '-co', 'COMPRESS=LZW', '-co', 'NUM_THREADS=ALL_CPUS',  # creation options
                  '-ot', 'UInt16',  # output data type
                  *extent,  # '-te' <xmin> <ymin> <xmax> <ymax>
-                 str(selected_file), str(temp / 'rasterise_zid_100m.tif')])  # src_datasource, dst_filename
+                 str(temp / 'boundaries.shp'), str(temp / 'rasterise_zid_100m.tif')])  # src_datasource, dst_filename
 
 logger.info('Rasterizing completed')
 
