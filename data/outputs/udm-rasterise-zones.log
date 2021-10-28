@@ -1,8 +1,0 @@
-2021-10-28 15:47:09,200 - INFO - Calculating extents from C:\Users\njv7\projects\udm_setup\data\inputs\polygons\glasgow_lads_zid.shp
-2021-10-28 15:47:09,220 - INFO - Extents calculated
-2021-10-28 15:47:09,220 - INFO - Creating bounding box for C:\Users\njv7\projects\udm_setup\data\inputs\polygons\glasgow_lads_zid.shp
-2021-10-28 15:47:09,228 - INFO - Bounding box created
-2021-10-28 15:47:09,228 - INFO - Rasterizing C:\Users\njv7\projects\udm_setup\data\inputs\polygons\glasgow_lads_zid.shp
-2021-10-28 15:47:10,185 - INFO - Rasterizing completed
-2021-10-28 15:47:10,185 - INFO - Translating raster
-2021-10-28 15:47:10,885 - INFO - Translating completed
