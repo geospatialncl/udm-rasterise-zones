@@ -5,6 +5,7 @@ metadata:
   name: udm-rasterise-zones
   publisher: Newcastle University
   summary: Tool for rasterising zones, adding IDs and sorting populations data
+  source_code: https://github.com/OpenCLIM/udm-rasterise-zones
   description: >
     Calculates the extent of the input zones. Orders zones by a given sort field and assigned an ID. Sorts population
     data based on the sort field after merging with the zones dataset then stores these values as a CSV.
