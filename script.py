@@ -5,6 +5,7 @@ import logging
 from osgeo import ogr
 import math
 import geopandas as gpd
+import pandas as pd
 
 
 # setup paths to data
@@ -30,7 +31,7 @@ logger.addHandler(fh)
 
 input_files = []
 for ext in ['shp', 'gpkg']:
-    input_files.extend(list(inputs.glob(f"polygons/*.{ext}")))
+    input_files.extend(list(inputs.glob(f"zones/*.{ext}")))
 
 assert len(input_files) > 0, 'No input files found'
 selected_file = input_files[0]
@@ -120,9 +121,16 @@ outDataSource = None
 
 logger.info('Bounding box created')
 
+# Add the sort_id field and save to temp
 boundaries = gpd.read_file(input_files[0])
 boundaries['sort_id'] = boundaries[sort_field].argsort()
 boundaries.to_file(temp / 'boundaries.shp')
+
+# Merge with population data and store population as CSV
+population = pd.read_csv(inputs / 'population/population.csv')
+population = boundaries.merge(population).sort_values('sort_id')
+assert (population.sort_id.diff().iloc[1:] == 1).all(), 'Population data missing'
+population.population.to_csv(outputs / 'population.csv', index=False)
 
 ##--rasterise at 1m
 
