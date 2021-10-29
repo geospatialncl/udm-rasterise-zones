@@ -1,0 +1,48 @@
+kind: Model
+api_version: v1beta1
+metadata:
+  display_name: UDM Rasterise Zones
+  name: udm-rasterise-zones
+  publisher: Newcastle University
+  summary: Tool for rasterising zones, adding IDs and sorting populations data
+  description: >
+    Calculates the extent of the input zones. Orders zones by a given sort field and assigned an ID. Sorts population
+    data based on the sort field after merging with the zones dataset then stores these values as a CSV.
+spec:
+  inputs:
+    parameters:
+      - name: SORT_FIELD
+        title: Sort field
+        type: string
+        description: The field that is used to sort zones
+        default: 'code'
+        required: true
+
+    dataslots:
+      - name: Zones
+        description: GeoPackage (.gpkg) or Shapefile (.shp) dataset containing polygons
+        default:
+          - d0776cf1-e9d0-4bb7-b454-3eae8ee6a9ec
+        path: inputs/zones
+        required: true
+
+      - name: Population
+        description: CSV file containing population data. At least one field must match with the Zones data.
+        default:
+          - a28a2942-6df3-470c-91f4-238a0f003873
+        path: inputs/population
+        required: true
+
+  outputs:
+    datasets:
+      - name: outputs/extent.shp
+        type: Shapefile
+        description: Extent of the zones
+
+      - name: outputs/population.csv
+        type: CSV
+        description: Sorted population data for each zone
+
+      - name: outputs/zone_identity_100m.asc
+        type: ASCII
+        description: Raster containing zone IDs
