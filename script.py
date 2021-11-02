@@ -135,8 +135,6 @@ population = population.rename(columns={'sort_id': 'zone_identity', 'population'
 
 population[['zone_identity', 'initial_value', 'final_value']].to_csv(outputs / 'population.csv', index=False)
 
-##--rasterise at 1m
-
 logger.info(f'Rasterizing {selected_file}')
 
 subprocess.call(['gdal_rasterize',
