@@ -130,8 +130,8 @@ boundaries.to_file(temp / 'boundaries.shp')
 population = pd.read_csv(inputs / 'population/population.csv')
 population = boundaries.merge(population).sort_values('sort_id')
 assert (population.sort_id.diff().iloc[1:] == 1).all(), 'Population data missing'
-population['initial_value'] = 0
-population = population.rename(columns={'sort_id': 'zone_identity', 'population': 'final_value'})
+population = population.rename(columns={'sort_id': 'zone_identity',
+                                        'initial_population': 'initial_value', 'final_population': 'final_value'})
 
 population[['zone_identity', 'initial_value', 'final_value']].to_csv(outputs / 'population.csv', index=False)
 
