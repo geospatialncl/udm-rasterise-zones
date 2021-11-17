@@ -152,7 +152,7 @@ logger.info('Rasterizing completed')
 logger.info('Translating raster')
 
 subprocess.call(['gdal_translate',
-                 '-a_nodata', '0',  # set nodata value
+                 '-a_nodata', '-1',  # set nodata value
                  str(temp / 'rasterise_zid_100m.tif'), str(outputs / 'zone_identity_100m.asc')])  # srcfile, dstfile
 
 logger.info('Translating completed')
