@@ -30,7 +30,7 @@ spec:
       - name: Population
         description: CSV file containing population data. At least one field must match with the Zones data.
         default:
-          - a28a2942-6df3-470c-91f4-238a0f003873
+          - 4dc31a96-5793-47e2-a22a-a4ee5136f384
         path: inputs/population
         required: true
 
