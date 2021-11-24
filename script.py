@@ -130,10 +130,10 @@ boundaries.to_file(temp / 'boundaries.shp')
 population = pd.read_csv(inputs / 'population/population.csv')
 population = boundaries.merge(population).sort_values('sort_id')
 assert (population.sort_id.diff().iloc[1:] == 1).all(), 'Population data missing'
-population = population.rename(columns={'sort_id': 'zone_identity', sort_field: 'region_code',
+population = population.rename(columns={'sort_id': 'zone_identity', sort_field: 'zone_code',
                                         'initial_population': 'initial_value', 'final_population': 'final_value'})
 
-population[['zone_identity', 'region_code', 'initial_value', 'final_value']].to_csv(outputs / 'population.csv',
+population[['zone_identity', 'zone_code', 'initial_value', 'final_value']].to_csv(outputs / 'population.csv',
                                                                                     index=False)
 
 logger.info(f'Rasterizing {selected_file}')
@@ -154,6 +154,6 @@ logger.info('Translating raster')
 
 subprocess.call(['gdal_translate',
                  '-a_nodata', '-1',  # set nodata value
-                 str(temp / 'rasterise_zid_100m.tif'), str(outputs / 'zone_identity_100m.asc')])  # srcfile, dstfile
+                 str(temp / 'rasterise_zid_100m.tif'), str(outputs / 'zone_identity.asc')])  # srcfile, dstfile
 
 logger.info('Translating completed')
