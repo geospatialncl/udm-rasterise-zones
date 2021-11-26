@@ -142,7 +142,8 @@ subprocess.call(['gdal_rasterize',
                  '-a', 'sort_id',  # attribute field to burn
                  '-tr', '100', '100',  # target resolution <xres> <yres>
                  '-co', 'COMPRESS=LZW', '-co', 'NUM_THREADS=ALL_CPUS',  # creation options
-                 '-ot', 'UInt16',  # output data type
+                 '-ot', 'Int16',  # output data type
+                 '-a_nodata', '-1',   #set nodata value 
                  *extent,  # '-te' <xmin> <ymin> <xmax> <ymax>
                  str(temp / 'boundaries.shp'), str(temp / 'rasterise_zid_100m.tif')])  # src_datasource, dst_filename
 
@@ -153,6 +154,8 @@ logger.info('Rasterizing completed')
 logger.info('Translating raster')
 
 subprocess.call(['gdal_translate',
+                 '-tr', '100', '100',    #target resolution <xres> <yres>                
+                 '-ot', 'Int16',        #output data type 
                  '-a_nodata', '-1',  # set nodata value
                  str(temp / 'rasterise_zid_100m.tif'), str(outputs / 'zone_identity.asc')])  # srcfile, dstfile
 
