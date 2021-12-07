@@ -122,8 +122,8 @@ outDataSource = None
 logger.info('Bounding box created')
 
 # Add the sort_id field and save to temp
-boundaries = gpd.read_file(input_files[0])
-boundaries['sort_id'] = boundaries[sort_field].argsort()
+boundaries = gpd.read_file(input_files[0]).sort_values(sort_field)
+boundaries['sort_id'] = range(len(boundaries))
 boundaries.to_file(temp / 'boundaries.shp')
 
 # Merge with population data and store population as CSV
