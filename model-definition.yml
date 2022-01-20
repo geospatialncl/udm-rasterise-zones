@@ -1,8 +1,8 @@
 kind: Model
 api_version: v1beta1
 metadata:
-  display_name: UDM Rasterise Zones
-  name: udm-rasterise-zones
+  display_name: UDM Rasterise Zones 2
+  name: udm-rasterise-zones-2
   publisher: Newcastle University
   summary: Tool for rasterising zones, adding IDs and sorting populations data
   source_code: https://github.com/OpenCLIM/udm-rasterise-zones
