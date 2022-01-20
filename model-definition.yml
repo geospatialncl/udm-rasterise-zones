@@ -32,7 +32,7 @@ spec:
         default:
           - 4dc31a96-5793-47e2-a22a-a4ee5136f384
         path: inputs/population
-        required: true
+        required: false
 
   outputs:
     datasets:
