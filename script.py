@@ -38,9 +38,17 @@ selected_file = input_files[0]
 
 logger.info(f'Calculating extents from {selected_file}')
 
+# Get extension for input file
+#ext = input_files[0].split('.')[1]
+file_extension = input_files[0].suffix
+
 # Get a Layer's Extent
 inShapefile = str(input_files[0])
-inDriver = ogr.GetDriverByName("ESRI Shapefile")
+if file_extension == '.gpkg':
+    inDriver = ogr.GetDriverByName("GPKG")
+else:
+    inDriver = ogr.GetDriverByName("ESRI Shapefile")
+
 inDataSource = inDriver.Open(inShapefile, 0)
 inLayer = inDataSource.GetLayer()
 extents = inLayer.GetExtent()

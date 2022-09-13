@@ -4,8 +4,8 @@ RUN mkdir /src
 
 WORKDIR /src
 
-COPY script.py .
-
 RUN apt update && apt install -y python3-pip && pip install geopandas
+
+COPY script.py .
 
 CMD python script.py
